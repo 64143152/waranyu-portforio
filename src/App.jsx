@@ -1,18 +1,25 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import Navbar from './components/Navbar';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import About from './components/About';
+import Navbar from './components/Navbar';
 import Home from './components/Home';
+import About from './components/About';
+import Contact from './components/Contact';
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="text-white min-vh-100" style={{ backgroundColor: '#533f38' }}>
-      <Navbar />
-      <Home />
-      <About />
-    </div>
-    
+    <Router>
+      <div className="text-white min-vh-100 mb-5" style={{ backgroundColor: '#986C51' }}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

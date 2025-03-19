@@ -1,18 +1,77 @@
+import { useState, useEffect } from "react";
+
 const Home = () => {
   return (
-    <div className='d-flex justify-content-center align-items-center gap-4 mt-5'>
-        <div className="text-center">
-          <img 
-            src="https://scontent.fcnx2-1.fna.fbcdn.net/v/t39.30808-6/473191882_3957514494568502_5157621070786005939_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFN7MFljEs100XzClj87kkARPcr7AeBlxBE9yvsB4GXEM-KhB7pMXExx8SXCrskY7kXbr_QIOzJIwxpO7ZL8H7X&_nc_ohc=cAt71WB599AQ7kNvgEVMSZv&_nc_oc=Adj69qV1PXy5D0emi839_ZcWirMUrvue6UA1q0gFrTqDcmmXHkIvKNBk0TP2J58iU1s&_nc_zt=23&_nc_ht=scontent.fcnx2-1.fna&_nc_gid=rzp6ZrKa6nxdFwQdV0jmWg&oh=00_AYGWUx0NB8mX07f1Vpn00i8emVGrHyreY3OsHQCcVhY0Bw&oe=67DF4220" 
-            alt="Portfolio" 
-            style={{ width: '150px', height: '150px' }} 
+    <>
+      <section className="d-lg-flex justify-content-center align-items-center min-vh-100">
+        <div className="text-center " style={{ flex: 1 }}>
+          <img
+            src="/images/profile2.png"
+            alt="Profile"
+            style={{ width: '60%', objectFit: 'cover' }} 
           />
         </div>
-        <div className="text-center ">
-          <h1>Portfolio</h1>
-          <h2>Waranyu Thammason</h2>
+        <div 
+          className="text-center p-5" 
+          style={{ flex: 1  }}
+        >
+          <TypingEffect />
         </div>
-    </div>
-  )
+      </section>
+      <section className="d-lg-flex justify-content-center align-items-center min-vh-100 text-black" style={{ backgroundColor: '#E5c690' }}>
+        <div className=" p-5 "style={{ flex: 1 }}>
+            <p className="p-lg-5">
+              <h3>ก่อนอื่นผมขอแนะนำตัวก่อนเลยครับ</h3><br />
+               สวัสดีครับ ผมนายวรัญญู ธรรมสอน หรือเรียกสั้นๆว่า K ก็ได้ครับ<br /> 
+              มีความชอบในการศึกษาด้านเทคโนโลยีและการพัฒนาซอฟต์แวร์ ตลอดการศึกษาผมได้พัฒนาทักษะในด้านการเขียนโปแกรม 
+              มีความพยายามเรียนรู้ทำความเข้าใจในด้านเทคโนโลยีและซอฟต์แวร์อยู่เสมอชอบลองสิ่งใหม่ๆ ไม่ว่าจะเป็นเครื่องมือ เทคนิค เพื่อพัฒนาตนเอง มีความอดทนและเรียนรู้ได้เร็ว ผมเชื่อว่าความรู้และทักษะที่ได้จากการเรียนรู้ที่ผ่านมาของผม
+              จะสร้างคุณค่าและประโยชน์ต่อองค์กรของท่าน
+            </p>
+          </div>
+          <div className="text-center " style={{ flex: 1 }}>
+            <img
+              src="/images/profile.png"
+              alt="Profile"
+              style={{ width: '50%', objectFit: 'cover' }} 
+            />
+          </div>
+      </section>
+    </>
+  );
 }
-export default Home
+
+export default Home;
+
+const TypingEffect = () => {
+  const [text, setText] = useState("");
+  const messages = ["Waranyu Thammason", "Web Developer", "UI/UX Designer"]; // อาร์เรย์เก็บข้อความ
+  const typingSpeed = 150; 
+
+  useEffect(() => {
+    let messageIndex = 0; 
+    let charIndex = -1; 
+
+    const typeMessage = () => {
+      const currentMessage = messages[messageIndex];
+      setText((prev) => prev + currentMessage.charAt(charIndex)); 
+      charIndex += 1;
+
+      if (charIndex === currentMessage.length) {
+        clearInterval(typingInterval); 
+        setTimeout(() => {
+          messageIndex = (messageIndex + 1) % messages.length; 
+          setText(""); 
+          charIndex = -1; 
+
+          typingInterval = setInterval(typeMessage, typingSpeed); 
+        }, 1000); 
+      }
+    };
+
+    let typingInterval = setInterval(typeMessage, typingSpeed); 
+
+    return () => clearInterval(typingInterval);
+  }, []); 
+
+  return <h1>{text}</h1>;
+};
